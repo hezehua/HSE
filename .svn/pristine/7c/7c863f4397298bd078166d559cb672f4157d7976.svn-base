@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>底部导航</title>
+		<link rel="stylesheet" type="text/css" href="./css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="./css/aui.css"/>
+		<style>
+			header {
+				background-color: #0070B9;
+				/*display:fixed;*/
+			}
+			header ul li {
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+				display: none;
+				color: #fff;
+				position: relative;
+				font-size: 18px;
+			}
+			header ul li.active {
+				display: block;
+			}
+			#footer {
+				background-color: #f2f2f2;
+			}
+			#footer ul li {
+				/*padding-top: 10px;*/
+				padding-bottom: 10px;
+				background: url() no-repeat center 2px;
+				background-size: auto 30px;
+				text-align: center;
+				font-size:20px;
+			}
+			#footer ul li.active, #footer ul li p.active {
+				color: #6ab494;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap" class="flex-wrap flex-vertical">
+			<header>
+				<ul>
+					<li id="message" class="border-b active" >
+						消息
+					</li>
+					<li id="contact" class="border-b" >
+						通讯录
+					</li>
+					<li id="manage" class="border-b" >
+						应用
+					</li>
+					<li id="myself"class="border-b" >
+						个人中心
+					</li>
+				</ul>
+			</header>
+			<div id="main" class="flex-con"></div>
+			<div id="footer" class="border-t">
+				<ul class="flex-wrap" >
+					<li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con active" >
+						<i class="aui-iconfont aui-icon-comment"></i>
+						<p class="active">
+							消息
+						</p>
+					</li>
+					<li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >
+						<i class="aui-iconfont aui-icon-my"></i>
+						<p>
+							通讯录
+						</p>
+					</li>
+					<li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >
+						<i class="aui-iconfont aui-icon-home"></i>
+						<p>
+							应用
+						</p>
+					</li>
+					<li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >
+						<i class="aui-iconfont aui-icon-my"></i>
+						<p >
+							个人中心
+						</p>
+					</li>
+				</ul>
+			</div>
+	</body>
+</html>
+<script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript">
+	apiready = function() {
+		api.parseTapmode();
+		$api.fixStatusBar($api.dom('header'));
+		api.setStatusBarStyle({
+			style : 'dark',
+			color : '#6ab494'
+		});
+		alert('1');
+		funIniGroup();
+	}
+	function funIniGroup() {
+		var eHeaderLis = $api.domAll('header li'), frames = [];
+		for (var i = 0, len = eHeaderLis.length; i < len; i++) {
+			var id = eHeaderLis[i].getAttribute('id');
+			//myself,manage,contact,meaaage
+			frames.push({
+				name : id,
+				url : './html/' + id + '/' + id + '.html',
+				bgColor : 'rgba(0,0,0,.2)',
+				bounces : true
+			})
+		}
+		api.openFrameGroup({
+			name : 'group',
+			scrollEnabled : false,
+			rect : {
+				x : 0,
+				y : $api.dom('header').offsetHeight,
+				w : api.winWidth,
+				h : $api.dom('#main').offsetHeight
+			},
+			index : 0,
+			frames : frames
+		}, function(ret, err) {
+		});
+	}
+
+	// 随意切换按钮
+	function randomSwitchBtn(tag) {
+		if (tag == $api.dom('#footer li.active'))
+			return;
+		var eFootLis = $api.domAll('#footer li'), eHeaderLis = $api.domAll('header li'), index = 0;
+		for (var i = 0, len = eFootLis.length; i < len; i++) {
+			if (tag == eFootLis[i]) {
+				index = i;
+			} else {
+				$api.removeCls(eFootLis[i], 'active');
+				$api.removeCls(eHeaderLis[i], 'active');
+				//				$api.css($api.last(eFootLis[i]),'color: #757575;');
+				$api.removeCls($api.last(eFootLis[i]), 'active');
+			}
+		}
+		$api.addCls(eFootLis[index], 'active');
+		$api.addCls(eHeaderLis[index], 'active');
+		//		$api.css($api.last(eFootLis[index]),'color: #6ab494;');
+		$api.addCls($api.last(eFootLis[index]), 'active');
+		api.setFrameGroupIndex({
+			name : 'group',
+			index : index
+		});
+	}
+</script>
