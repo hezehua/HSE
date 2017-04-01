@@ -1,0 +1,24 @@
+!SESSION 2017-04-01 10:31:26.334 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_79
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY com.apicloud.authentication 4 0 2017-04-01 10:33:45.119
+!MESSAGE {  "status": 1,  "result": {    "userid": 514144,    "username": "1197265347@qq.com",    "state": 1  }}
+
+!ENTRY com.apicloud.loader.platforms.ios 4 0 2017-04-01 10:33:49.502
+!MESSAGE earlyStartup() find device 
+
+!ENTRY com.apicloud.updatemanager 0 0 2017-04-01 10:34:40.544
+!MESSAGE ok
+
+!ENTRY org.eclipse.core.jobs 2 2 2017-04-01 10:38:52.819
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: com.apicloud.navigator.start.WebSocketServerStart$1
+
+!ENTRY org.eclipse.core.jobs 2 2 2017-04-01 10:38:52.819
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: com.apicloud.navigator.start.HttpFileServerStart$1
+
+!ENTRY org.eclipse.core.jobs 2 2 2017-04-01 10:38:52.819
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: com.apicloud.loader.platforms.ios.ANBActivator$1
